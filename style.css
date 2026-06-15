@@ -1,9 +1,0 @@
-
-body{background:#0f172a;color:#fff;font-family:Tahoma;padding:15px}
-header{text-align:center}
-input{width:100%;padding:12px;border-radius:10px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-button{padding:10px;border:none;border-radius:8px;cursor:pointer}
-.card{background:#1e293b;padding:15px;border-radius:12px;margin:10px 0}
-.cat{opacity:.8;font-size:12px}
-.copy{float:left}
