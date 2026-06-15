@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مايكرو فصيل شرطة فورست - لوحة التحكم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0d1424; /* الخلفية الداكنة الفخمة */
+            --card-bg: #161f33; /* لون خلفية المستطيلات */
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border: #232e48;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px; /* جعل العرض متناسقاً مع التصميم العمودي */
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* شريط البحث */
+        .search-box {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background-color: #ffffff;
+            color: #000000;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        /* أزرار الفئات */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .separator {
+            border-top: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        /* قائمة بالتسلسل العمودي تحت بعضها */
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* المسافة بين السطور */
+        }
+
+        /* تصميم السطر العمودي الاحترافي */
+        .macro-row {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            transition: all 0.2s;
+        }
+
+        .macro-row:hover {
+            border-color: var(--primary);
+            background-color: #1a243d;
+        }
+
+        .macro-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 80px;
+        }
+
+        .macro-num {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* خانة النص المحمية من التعديل */
+        .macro-input {
+            flex-grow: 1;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #e2e8f0;
+            background-color: #0f172a;
+            box-sizing: border-box;
+            cursor: default; /* تظهر للمستخدم أنها للقراءة فقط */
+        }
+
+        .macro-input:focus {
+            outline: none; /* إلغاء التحديد عند الضغط */
+        }
+
+        /* زر النسخ الجانبي */
+        .copy-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-weight: 600;
+            font-family: inherit;
+            transition: background 0.2s;
+            min-width: 95px;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .copy-btn.copied {
+            background-color: var(--success);
+        }
+
+        /* متوافق مع شاشات الهواتف الصغيرة */
+        @media (max-width: 500px) {
+            .macro-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .copy-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>مايكرو فصيل شرطة فورست</h1>
+        <input type="text" class="search-box" id="searchBox" placeholder="بحث عن مايكرو...">
+        
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterMacros('الكل')">الكل</button>
+            <button class="filter-btn" onclick="filterMacros('مرور')">مرور</button>
+            <button class="filter-btn" onclick="filterMacros('اعتداءات')">اعتداءات</button>
+            <button class="filter-btn" onclick="filterMacros('بلاغات')">بلاغات</button>
+        </div>
+    </header>
+
+    <div class="separator"></div>
+
+    <div class="list-container" id="cardsGrid"></div>
+</div>
+
+<script>
+    const totalMacros = 30;
+    const grid = document.getElementById('cardsGrid');
+    const types = ['مرور', 'اعتداءات', 'بلاغات'];
+
+    // توليد الـ 30 خانة عمودياً وبطريقة محمية (Read-Only)
+    for (let i = 1; i <= totalMacros; i++) {
+        const randomType = types[(i - 1) % types.length];
+        const row = document.createElement('div');
+        row.className = 'macro-row';
+        row.setAttribute('data-type', randomType);
+        
+        row.innerHTML = `
+            <div class="macro-info">
+                <span class="macro-num"><i class="fa-solid fa-hashtag"></i> خانة ${i}</span>
+            </div>
+            <input type="text" class="macro-input" id="input-${i}" value="مايكرو ${i}" readonly autocomplete="off">
+            <button class="copy-btn" id="btn-${i}">
+                <i class="fa-regular fa-copy"></i>
+                <span>نسخ</span>
+            </button>
+        `;
+        
+        grid.appendChild(row);
+
+        // كود النسخ الذكي
+        const button = row.querySelector(`#btn-${i}`);
+        button.addEventListener('click', () => {
+            const input = row.querySelector(`#input-${i}`);
+            const btnText = button.querySelector('span');
+            const btnIcon = button.querySelector('i');
+
+            navigator.clipboard.writeText(input.value).then(() => {
+                button.classList.add('copied');
+                btnText.innerText = 'تم!';
+                btnIcon.className = 'fa-solid fa-check';
+
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    btnText.innerText = 'نسخ';
+                    btnIcon.className = 'fa-regular fa-copy';
+                }, 1500);
+            });
+        });
+    }
+
+    // نظام البحث
+    document.getElementById('searchBox').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        document.querySelectorAll('.macro-row').forEach(row => {
+            const inputVal = row.querySelector('.macro-input').value.toLowerCase();
+            row.style.display = inputVal.includes(query) ? 'flex' : 'none';
+        });
+    });
+
+    // نظام الفلترة
+    function filterMacros(type) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        document.querySelectorAll('.macro-row').forEach(row => {
+            if(type === 'الكل' || row.getAttribute('data-type') === type) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
