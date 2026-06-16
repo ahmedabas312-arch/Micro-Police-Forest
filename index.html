@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مايكرو شرطة فورست</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #000000; 
+            --card-bg: #0b1320; 
+            --primary: #0099ff; 
+            --success: #10b981;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border: #142238; 
+            --cyan-glow: linear-gradient(90deg, #00d2ff 0%, #0076ff 100%); 
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .group-title {
+            background: var(--cyan-glow);
+            color: #000000; 
+            font-weight: 700;
+            font-size: 1.25rem;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+        }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .macro-row {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .macro-input {
+            flex-grow: 1;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            color: #ffffff;
+            background-color: #050a12; 
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .macro-input.editable-mode {
+            border-color: #00d2ff;
+            background-color: #112035;
+        }
+
+        .copy-btn {
+            background-color: transparent;
+            color: #00d2ff;
+            border: 2px solid #00d2ff;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.2s;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .copy-btn:hover {
+            background-color: #00d2ff;
+            color: #000000;
+        }
+
+        .copy-btn.copied {
+            background-color: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .admin-panel {
+            background: #090f1a;
+            border: 2px dashed #142238;
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .admin-panel h3 {
+            margin-top: 0;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .admin-input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #000000;
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            outline: none;
+            width: 220px;
+        }
+
+        .admin-btn {
+            background-color: #1e293b;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        .admin-btn.save-active {
+            background-color: var(--success);
+        }
+
+        @media (max-width: 500px) {
+            .macro-row { padding: 10px; gap: 10px; }
+            .macro-input { font-size: 1rem; padding: 10px; }
+            .copy-btn { padding: 8px 16px; min-width: 75px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>مايكرو فصيل شرطة فورست 🦅</h1>
+    </header>
+
+    <div class="list-container">
+        
+        <div class="group-title"><i class="fa-solid fa-scale-balanced"></i> أولاً: التحذيرات والحقوق</div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-1" readonly><button class="copy-btn" onclick="copyText(1, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-2" readonly><button class="copy-btn" onclick="copyText(2, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-3" readonly><button class="copy-btn" onclick="copyText(3, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-4" readonly><button class="copy-btn" onclick="copyText(4, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-5" readonly><button class="copy-btn" onclick="copyText(5, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-6" readonly><button class="copy-btn" onclick="copyText(6, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-7" readonly><button class="copy-btn" onclick="copyText(7, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-8" readonly><button class="copy-btn" onclick="copyText(8, this)">نسخ</button></div>
+
+        <div class="group-title"><i class="fa-solid fa-radio"></i> ثانياً: أوامر الراديو</div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-9" readonly><button class="copy-btn" onclick="copyText(9, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-10" readonly><button class="copy-btn" onclick="copyText(10, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-11" readonly><button class="copy-btn" onclick="copyText(11, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-12" readonly><button class="copy-btn" onclick="copyText(12, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-13" readonly><button class="copy-btn" onclick="copyText(13, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-14" readonly><button class="copy-btn" onclick="copyText(14, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-15" readonly><button class="copy-btn" onclick="copyText(15, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-16" readonly><button class="copy-btn" onclick="copyText(16, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-17" readonly><button class="copy-btn" onclick="copyText(17, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-18" readonly><button class="copy-btn" onclick="copyText(18, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-19" readonly><button class="copy-btn" onclick="copyText(19, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-20" readonly><button class="copy-btn" onclick="copyText(20, this)">نسخ</button></div>
+
+        <div class="group-title"><i class="fa-solid fa-gavel"></i> ثالثاً: الانتهاكات الجنائية</div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-21" readonly><button class="copy-btn" onclick="copyText(21, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-22" readonly><button class="copy-btn" onclick="copyText(22, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-23" readonly><button class="copy-btn" onclick="copyText(23, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-24" readonly><button class="copy-btn" onclick="copyText(24, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-25" readonly><button class="copy-btn" onclick="copyText(25, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-26" readonly><button class="copy-btn" onclick="copyText(26, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-27" readonly><button class="copy-btn" onclick="copyText(27, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-28" readonly><button class="copy-btn" onclick="copyText(28, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-29" readonly><button class="copy-btn" onclick="copyText(29, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-30" readonly><button class="copy-btn" onclick="copyText(30, this)">نسخ</button></div>
+
+        <div class="group-title"><i class="fa-solid fa-user-shield"></i> رابعاً: الانتهاكات المدنية</div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-31" readonly><button class="copy-btn" onclick="copyText(31, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-32" readonly><button class="copy-btn" onclick="copyText(32, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-33" readonly><button class="copy-btn" onclick="copyText(33, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-34" readonly><button class="copy-btn" onclick="copyText(34, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-35" readonly><button class="copy-btn" onclick="copyText(35, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-36" readonly><button class="copy-btn" onclick="copyText(36, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-37" readonly><button class="copy-btn" onclick="copyText(37, this)">نسخ</button></div>
+
+        <div class="group-title"><i class="fa-solid fa-building-shield"></i> خامساً: الانتهاكات الإدارية</div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-38" readonly><button class="copy-btn" onclick="copyText(38, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-39" readonly><button class="copy-btn" onclick="copyText(39, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-40" readonly><button class="copy-btn" onclick="copyText(40, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-41" readonly><button class="copy-btn" onclick="copyText(41, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-42" readonly><button class="copy-btn" onclick="copyText(42, this)">نسخ</button></div>
+        <div class="macro-row"><input type="text" class="macro-input" id="input-43" readonly><button class="copy-btn" onclick="copyText(43, this)">نسخ</button></div>
+
+    </div>
+
+    <div class="admin-panel">
+        <h3><i class="fa-solid fa-lock"></i> لوحة إدارة رئيس الفصيل (تعديل الأوامر)</h3>
+        <div id="loginSection">
+            <input type="password" id="passInput" class="admin-input" placeholder="أدخل كلمة المرور"><br>
+            <button onclick="checkAdmin()" class="admin-btn">تفعيل وضع التعديل</button>
+        </div>
+        <div id="controlSection" style="display: none;">
+            <p style="color: var(--success); font-weight: bold; margin-bottom: 15px;">✓ وضع التعديل نشط! اكتب التعديلات في الخانات بالأعلى ثم اضغط حفظ.</p>
+            <button onclick="saveNewData()" class="admin-btn save-active"><i class="fa-solid fa-floppy-disk"></i> حفظ التعديلات الجديدة للمنصة</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const totalMacros = 43;
+    const SECRET_PASSWORD = "1221";
+
+    // تحميل البيانات الافتراضية أو المحفوظة فوراً عند فتح الصفحة
+    let savedData = {};
+    try {
+        savedData = JSON.parse(localStorage.getItem('police_macros')) || {};
+    } catch(e) { savedData = {}; }
+
+    // تعبئة الخانات بالنصوص المقابلة لها تلقائياً وثباتها في الواجهة
+    for (let i = 1; i <= totalMacros; i++) {
+        const inputField = document.getElementById(`input-${i}`);
+        if (inputField) {
+            inputField.value = savedData[`input-${i}`] || `مايكرو ${i}`;
+        }
+    }
+
+    // دالة النسخ الفوري بجوار النص
+    function copyText(id, btn) {
+        const input = document.getElementById(`input-${id}`);
+        navigator.clipboard.writeText(input.value).then(() => {
+            btn.classList.add('copied');
+            btn.innerText = 'تم!';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerText = 'نسخ';
+            }, 1200);
+        });
+    }
+
+    // وضع المسؤول والتعديل
+    function checkAdmin() {
+        if(document.getElementById('passInput').value === SECRET_PASSWORD) {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('controlSection').style.display = 'block';
+            document.querySelectorAll('.macro-input').forEach(input => {
+                input.removeAttribute('readonly');
+                input.classList.add('editable-mode');
+            });
+        } else {
+            alert('كلمة المرور خاطئة!');
+        }
+    }
+
+    // حفظ البيانات لـ 43 خانة بالكامل
+    function saveNewData() {
+        let dataToSave = {};
+        for(let i = 1; i <= totalMacros; i++) {
+            const inputField = document.getElementById(`input-${i}`);
+            if (inputField) {
+                dataToSave[`input-${i}`] = inputField.value;
+            }
+        }
+        localStorage.setItem('police_macros', JSON.stringify(dataToSave));
+        alert('✓ تم حفظ التعديلات بنجاح وبشكل صلب مستقر!');
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
